@@ -1,0 +1,47 @@
+.partfive-section {
+  width: 100%;
+  background: #0a74c9; /* clean professional blue */
+  color: white;
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.partfive-container {
+  max-width: 900px;
+  text-align: center;
+}
+
+.partfive-container p.top-text {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+.partfive-container h2 {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+
+.partfive-container p.description {
+  font-size: 18px;
+  color: #e4efff;
+  margin-bottom: 40px;
+}
+
+.partfive-btn {
+  background: white;
+  color: #0a74c9;
+  padding: 15px 35px;
+  font-size: 18px;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.partfive-btn:hover {
+  background: #e8f3ff;
+}

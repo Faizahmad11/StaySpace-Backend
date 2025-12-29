@@ -1,0 +1,160 @@
+/* ================================
+   StaySpace – Premium Refer UI
+================================ */
+
+/* Background Wrapper */
+.refer-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #007bff, #00b3ff, #2f8fff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Main Card */
+.refer-card {
+  width: 100%;
+  max-width: 650px;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 40px;
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.26);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Moving Light Effect */
+.spotlight {
+  position: absolute;
+  top: -120px;
+  left: -120px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.65), transparent);
+  filter: blur(80px);
+  animation: moveLight 8s infinite linear;
+}
+@keyframes moveLight {
+  0%   { transform: translate(0,0); }
+  100% { transform: translate(350px,350px); }
+}
+
+/* Heading */
+.refer-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.refer-title span {
+  color: #ffeb3b;
+}
+
+/* Subtitle */
+.refer-sub {
+  color: #e5e5e5;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+/* Input Box */
+.refer-box {
+  display: flex;
+  margin: 0 auto 25px;
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.refer-input {
+  flex: 1;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.refer-input:focus {
+  outline: none;
+}
+
+/* Copy Button */
+.copy-btn {
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  padding: 12px 18px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.copy-btn:hover {
+  background: #00b3ff;
+  box-shadow: 0 0 12px #00b3ff;
+}
+
+/* Share Button */
+.refer-main-btn {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #007bff;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.refer-main-btn:hover {
+  background: #00b3ff;
+  box-shadow: 0 0 15px #00b3ff;
+  transform: translateY(-2px);
+}
+
+/* Benefits Row */
+.benefits {
+  margin-top: 35px;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.benefit-item {
+  text-align: center;
+  flex: 1;
+  color: #fff;
+}
+
+.benefit-item i {
+  font-size: 32px;
+  margin-bottom: 8px;
+  color: #ffeb3b;
+}
+
+.benefit-item p {
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .benefits {
+    flex-direction: column;
+    gap: 25px;
+  }
+}

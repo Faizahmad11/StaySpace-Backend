@@ -1,0 +1,102 @@
+/* Importing all CSS files */
+@import url("./Header.css");
+@import url("./Part1.css");
+@import url("./Partone.css");
+@import url("./Parttwo.css");
+@import url("./Partthree.css");
+@import url("./Partfour.css");
+@import url("./Partfive.css");
+@import url("./Partsix.css");
+@import url("./Whatapp.css");
+@import url("./Partseven.css");
+@import url("./Parteight.css");
+@import url("./Preloader.css");
+@import url("./Partnine.css");
+@import url("./Footer.css");
+@import url("./Free1.css");
+@import url("./ContactUs.css");
+@import url("./Signform.css");
+@import url("./ReferEarn.css");
+@import url("./AboutUS.css");
+@import url("./How1.css");
+@import url("./HowSteps.css");
+@import url("./Howwe2.css");
+@import url("./BackToHomeButton.css");
+@import url("./supportform.css");
+@import url("./Careerpart1.css");
+@import url("./Landlord.css");
+@import url("./Tenant.css");
+@import url("./Tenant.css");
+@import url("./AddListing.css");
+
+
+/* Defaults */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Primary Variables */
+:root {
+  --primary: "green";
+}
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.main-content {
+  padding-top: 80px !important; /* adjust according to navbar height */
+  min-height: calc(100vh - 80px) !important;
+  scroll-behavior: smooth !important; /* smooth scroll */
+}
+.fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.city-search-input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* AddListing form */
+.add-listing-form input,
+.add-listing-form select {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.add-listing-form button {
+  background: #0d6efd;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-listing-form button:hover {
+  background: #084298;
+}

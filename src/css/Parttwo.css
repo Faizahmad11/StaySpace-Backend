@@ -1,0 +1,337 @@
+/* =========================
+   MAIN CONTAINER
+========================= */
+.parttwo-container {
+  width: 100%;
+  padding: 80px 6%;
+  background: #f5f7fb;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.parttwo-container::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  left: -100px;
+  width: 250px;
+  height: 250px;
+  background: rgba(107, 0, 255, 0.1);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+/* =========================
+   FLEX WRAPPER
+========================= */
+.cards-wrapper {
+  display: flex;
+  gap: 35px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: stretch;
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================
+   LEFT CARD
+========================= */
+.left-card {
+  flex: 1;
+  min-width: 320px;
+  background: linear-gradient(135deg, #e9e0ff 0%, #d8c9ff 100%);
+  padding: 45px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.left-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.left-card::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: rgba(107, 0, 255, 0.15);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.rotate-text {
+  color: #6b00ff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 2;
+  position: relative;
+}
+
+/* =========================
+   RIGHT CARD (Upgraded)
+========================= */
+.right-card {
+  flex: 1;
+  min-width: 320px;
+  position: relative;
+  z-index: 2;
+}
+
+.improved-right-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f8ff 100%);
+  padding: 45px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.improved-right-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
+}
+
+.rc-title {
+  font-size: 2rem;
+  color: #1e1e1e;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.rc-desc {
+  color: #444;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  margin-bottom: 30px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn-purple {
+  background: linear-gradient(90deg, #6b00ff, #8f45ff);
+  padding: 12px 26px;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: fit-content;
+  box-shadow: 0 4px 14px rgba(107, 0, 255, 0.25);
+}
+
+.btn-purple:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
+  box-shadow: 0 6px 20px rgba(107, 0, 255, 0.4);
+}
+
+.pro-red-btn {
+  background: linear-gradient(90deg, #ff3b30, #ff1f0f);
+  padding: 13px 30px;
+  border-radius: 40px;
+  border: none;
+  font-weight: 600;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 38, 0, 0.25);
+  transition: 0.3s ease;
+}
+
+.pro-red-btn:hover {
+  transform: translateY(-3px);
+  opacity: 0.95;
+  box-shadow: 0 6px 20px rgba(255, 38, 0, 0.35);
+}
+
+/* =========================
+   STATS SECTION
+========================= */
+.stats-area {
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+  padding: 25px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* =========================
+   SPECIAL CARD STYLING
+========================= */
+.special-card {
+  background: linear-gradient(135deg, #6b00ff, #9b51ff);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(107, 0, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.special-card h1 {
+  color: #fff;
+  font-size: 38px;
+}
+
+.special-card p {
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.special-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(107, 0, 255, 0.4);
+}
+/* =========================
+   TRUSTED CARD (Enhanced)
+========================= */
+/* =========================
+   TRUSTED CARD (Balanced)
+========================= */
+.trusted-card {
+  background: linear-gradient(135deg, #6b00ff, #9b51ff);
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(107, 0, 255, 0.25);
+  transition: all 0.3s ease;
+  padding: 25px 20px;
+  text-align: center;
+}
+
+.trusted-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(107, 0, 255, 0.35);
+}
+
+.trusted-icon {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 12px;
+  border-radius: 50%;
+}
+
+.trusted-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 5px 0;
+}
+
+.trusted-card p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+
+
+.stat-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-box h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #6b00ff;
+}
+
+.stat-box p {
+  color: #333;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+/* =========================
+   GOOGLE RATING BOX
+========================= */
+.stat-box.google-logo-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.google-mini-logo {
+  width: 85px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.12));
+  opacity: 0.95;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.google-mini-logo:hover {
+  transform: scale(1.08);
+  opacity: 1;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  .cards-wrapper {
+    gap: 25px;
+  }
+  .rc-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .cards-wrapper {
+    flex-direction: column;
+  }
+
+  .stats-area {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-box {
+    width: 90%;
+  }
+
+  .parttwo-container {
+    padding: 60px 5%;
+  }
+}
+@media (max-width: 480px) {
+  .parttwo-container {
+    padding: 40px 4%;
+  }
+
+  .left-card,
+  .right-card {
+    padding: 30px;
+  }
+
+  .rc-title {
+    font-size: 1.4rem;
+  }
+}

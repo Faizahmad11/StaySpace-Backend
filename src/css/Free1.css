@@ -1,0 +1,247 @@
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #f4f6f8;
+}
+
+/* ===== BACKGROUND ===== */
+.Free1-bg {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 140px 15px 60px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Dark overlay */
+.Free1-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 0;
+}
+
+/* ===== CARD ===== */
+.signup-card {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 50px 40px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signup-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.18);
+}
+
+/* ===== ANIMATION ===== */
+.animate-fade-in {
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== HEADINGS ===== */
+.signup-card h2 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+.signup-card p {
+  color: #666;
+  margin-bottom: 28px;
+  font-size: 0.95rem;
+}
+
+/* ===== ROLE TABS ===== */
+.role-tabs {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.role-tabs li {
+  margin: 6px;
+}
+
+.role-btn {
+  border-radius: 50px;
+  border: none;
+  padding: 10px 28px;
+  background: #f0f3f7;
+  color: #555;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.role-btn:hover {
+  background: #e3e9f1;
+}
+
+.role-btn.active {
+  background: #1565c0;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(21, 101, 192, 0.35);
+  transform: translateY(-2px);
+}
+
+/* ===== INPUTS ===== */
+.signup-input {
+  width: 100%;
+  box-sizing: border-box; /* ensures input never exceeds parent width */
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  border: 1px solid #dce1e6;
+  background: #f7f9fb;
+  font-size: 0.95rem;
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.signup-input:focus {
+  outline: none;
+  border-color: #1565c0;
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.18);
+  background: #ffffff;
+}
+
+/* Fix Chrome autofill */
+.signup-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+  -webkit-text-fill-color: #000;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary,
+.btn-google {
+  width: 100%;
+  border-radius: 50px;
+  padding: 14px 0;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #1565c0;
+  color: #fff;
+  border: none;
+  box-shadow: 0 12px 35px rgba(21, 101, 192, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #0d47a1;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 45px rgba(21, 101, 192, 0.45);
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.btn-google {
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+.btn-google:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== SIGNIN LINK ===== */
+.signin-link {
+  margin-top: 18px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.signin-link span {
+  color: #1565c0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.signin-link span:hover {
+  text-decoration: underline;
+}
+
+/* ===== TOAST ===== */
+.toast-popup {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  padding: 14px 22px;
+  background: #00c853;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 200, 83, 0.3);
+  font-weight: 600;
+  z-index: 9999;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 576px) {
+  .signup-card {
+    padding: 36px 22px;
+  }
+
+  .role-btn {
+    padding: 8px 20px;
+    font-size: 0.85rem;
+  }
+
+  .signup-card h2 {
+    font-size: 1.7rem;
+  }
+}

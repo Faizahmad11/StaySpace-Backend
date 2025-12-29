@@ -1,0 +1,72 @@
+.support-card h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.support-card p {
+  font-size: 1rem;
+  margin-bottom: 25px;
+  color: #555;
+  text-align: center;
+}
+
+.support-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.support-card input,
+.support-card textarea {
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.support-card input:focus,
+.support-card textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+.support-card button {
+  padding: 12px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.support-card button:hover {
+  background-color: #0056b3;
+}
+
+.support-status {
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.support-status.success {
+  color: green;
+}
+
+.support-status.error {
+  color: red;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .support-card {
+    padding: 25px;
+    margin: 20px;
+  }
+}

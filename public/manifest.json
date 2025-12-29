@@ -1,0 +1,26 @@
+{
+  "short_name": "StayScape",
+  "name": "StayScape - Smart Hostel & Travel Explorer",
+"icons": [
+  {
+    "src": "favicon.png",
+    "sizes": "64x64 128x128 256x256",
+    "type": "image/png"
+  },
+  {
+    "src": "logo192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "logo512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1E90FF",
+  "background_color": "#ffffff"
+}
