@@ -3,52 +3,68 @@ import bgc1 from "../assets/bgc1.jpg";
 
 const AboutUS = () => {
   return (
-    <div className="about-container">
-      <div className="about-banner">
-        <img src={bgc1} alt="banner" className="about-img" />
-        <h1 className="about-title">About Us</h1>
+    <section className="about-page">
+
+      {/* HERO SECTION */}
+      <div className="about-hero">
+        <img src={bgc1} alt="About StaySpace" />
+        <h1 className="about-hero-title">About Us</h1>
       </div>
 
-      <div className="about-content">
-      <p>
-  StaySpace is a modern and intuitive digital platform developed as part of our 
-  Final Year Project, aiming to revolutionize how students and young professionals 
-  discover rental accommodation. In today's fast-paced world, finding a safe, 
-  verified, and budget-friendly living space often becomes a major challenge. 
-  Issues like unreliable listings, hidden charges, and unsafe environments make 
-  the search even more difficult. StaySpace has been designed to eliminate these 
-  problems through a secure, transparent, and technology-driven solution.
-</p>
+      {/* MAIN CONTENT SECTION */}
+      <div className="about-section">
+        <div className="about-body">
 
-<p>
-  Our platform creates a direct connection between tenants and property owners, 
-  removing the need for brokers and expensive commissions. This ensures complete 
-  transparency while keeping the entire process affordable. With detailed listings, 
-  real images, amenities, reviews, and location-based search, StaySpace enables 
-  users to explore hostels, rooms, shared spaces, and apartments with complete 
-  confidence.
-</p>
+          {/* Introduction */}
+          <h2 className="about-heading">Who We Are</h2>
+          <p>
+            StaySpace is a modern, intuitive digital platform created to revolutionize
+            how students and young professionals find rental accommodation. Our mission
+            is to provide a safe, verified, and budget-friendly living experience.
+          </p>
 
-<p>
-  Property owners also benefit from a dedicated dashboard, allowing them to 
-  publish listings, manage availability, track tenant interest, and access 
-  verified user information. This digital approach reduces manual effort and makes 
-  it significantly easier for owners to reach genuine tenants without relying on 
-  traditional methods.
-</p>
+          {/* The Problem */}
+          <h2 className="about-heading">The Challenge</h2>
+          <p>
+            Searching for accommodation often involves unreliable listings, hidden charges,
+            and unsafe environments. Traditional methods can be stressful, time-consuming,
+            and expensive, making it hard for users to find the right space.
+          </p>
 
-<p>
-  The purpose behind StaySpace is to build a safe, centralized, and user-friendly 
-  accommodation ecosystem. Our focus is on trust, reliability, modern design, and 
-  a seamless user experience — ensuring that students can make informed decisions 
-  about where they live, without stress or uncertainty.
-</p>
+          {/* Our Solution */}
+          <h2 className="about-heading">Our Solution</h2>
+          <p>
+            StaySpace bridges the gap between tenants and property owners. By eliminating
+            brokers and commissions, we provide a transparent platform. Users can explore
+            hostels, rooms, shared spaces, and apartments with real images, verified
+            amenities, and reviews.
+          </p>
+          <p>
+            Property owners benefit from a dedicated dashboard to manage listings, monitor
+            tenant interest, and access verified user information. This approach reduces
+            manual effort and ensures genuine connections.
+          </p>
 
-<h3 className="tagline">Smart Living. Trusted Spaces.</h3>
-<h2 className="tagline2">StaySpace — Find Your Space, Find Your Peace.</h2>
+          {/* Our Vision */}
+          <h2 className="about-heading">Our Vision</h2>
+          <p>
+            We aim to build a trusted, centralized, and user-friendly accommodation
+            ecosystem. StaySpace focuses on reliability, modern design, and a seamless
+            experience so users can make informed decisions without stress or uncertainty.
+          </p>
 
+          {/* Taglines */}
+          <h3 className="about-tagline">
+            Smart Living. Trusted Spaces.
+          </h3>
+          <h2 className="about-tagline-main">
+            StaySpace — Find Your Space, Find Your Peace.
+          </h2>
+
+        </div>
       </div>
-    </div>
+
+    </section>
   );
 };
 

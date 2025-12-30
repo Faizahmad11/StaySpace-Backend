@@ -1,7 +1,30 @@
 import React, { useState } from "react";
 import heroBg from "../assets/imgi_24_1583228392669.jpg";
 
-const propertiesData = [];
+/* 🔹 TEMP DEMO DATA (replace with API later) */
+const propertiesData = [
+  {
+    id: 1,
+    city: "Karachi",
+    area: "Gulshan",
+    type: "Flat / Room",
+    rent: 25000,
+  },
+  {
+    id: 2,
+    city: "Lahore",
+    area: "Johar Town",
+    type: "PG / Hostel",
+    rent: 18000,
+  },
+  {
+    id: 3,
+    city: "Islamabad",
+    area: "G-11",
+    type: "Dormitory",
+    rent: 15000,
+  },
+];
 
 export default function Part1() {
   const [filters, setFilters] = useState({
@@ -9,20 +32,30 @@ export default function Part1() {
     type: "",
     rent: "",
   });
+
   const [results, setResults] = useState([]);
 
+  /* 🔹 INPUT CHANGE */
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
-  const handleSearch = () => {
+  /* 🔹 SEARCH LOGIC */
+  const handleSearch = (customLocation) => {
+    const locationValue = customLocation ?? filters.location;
+
     const filtered = propertiesData.filter((p) => {
       const matchLocation =
-        filters.location === "" ||
-        p.city.toLowerCase().includes(filters.location.toLowerCase()) ||
-        p.area.toLowerCase().includes(filters.location.toLowerCase());
-      const matchType = filters.type === "" || p.type === filters.type;
-      const matchRent = filters.rent === "" || p.rent <= parseInt(filters.rent);
+        locationValue === "" ||
+        p.city.toLowerCase().includes(locationValue.toLowerCase()) ||
+        p.area.toLowerCase().includes(locationValue.toLowerCase());
+
+      const matchType =
+        filters.type === "" || p.type === filters.type;
+
+      const matchRent =
+        filters.rent === "" || p.rent <= Number(filters.rent);
+
       return matchLocation && matchType && matchRent;
     });
 
@@ -30,45 +63,40 @@ export default function Part1() {
   };
 
   return (
-    <section
-      className="hero-section text-center"
-      style={{
-        backgroundImage: `url(${heroBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="overlay"></div>
+    <section className="hero-wrapper">
+      <div
+        className="hero-bg"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      ></div>
+      <div className="hero-overlay"></div>
 
-      <div className="hero-content container">
-        <h1 className="hero-title mb-4">
+      <div className="hero-container">
+        <h1 className="hero-heading">
           <span>Find Your Perfect Stay</span> in Pakistan’s Most Popular Cities
         </h1>
-        <p className="hero-subtitle">
-          Discover hostels, flats, and rooms near you — stylish, affordable, and easy to find.
+
+        <p className="hero-text">
+          Discover hostels, flats, and rooms near you — affordable, verified, and hassle-free.
         </p>
 
-        {/* ===== SEARCH BOX ===== */}
-        <div className="search-box">
-          {/* Location */}
-          <div className="input-with-icon">
-            <i className="fa-solid fa-location-dot search-icon"></i>
+        {/* 🔍 SEARCH */}
+        <div className="hero-search">
+          <div className="hero-field">
+            <i className="fa-solid fa-location-dot"></i>
             <input
-              type="text"
+              className="hero-input"
               name="location"
-              className="search-input"
-              placeholder="Enter Area or City"
+              placeholder="City or Area"
               value={filters.location}
               onChange={handleChange}
             />
           </div>
 
-          {/* Property Type */}
-          <div className="select-wrapper">
-            <i className="fa-solid fa-building select-icon"></i>
+          <div className="hero-field">
+            <i className="fa-solid fa-building"></i>
             <select
+              className="hero-select"
               name="type"
-              className="search-select"
               value={filters.type}
               onChange={handleChange}
             >
@@ -76,40 +104,63 @@ export default function Part1() {
               <option>Flat / Room</option>
               <option>PG / Hostel</option>
               <option>Dormitory</option>
-              <option>Ladies Hostel</option>
-              <option>Mess</option>
             </select>
           </div>
 
-          {/* Rent */}
-          <div className="input-with-icon">
-            <i className="fa-solid fa-money-bill-wave search-icon"></i>
+          <div className="hero-field">
+            <i className="fa-solid fa-money-bill-wave"></i>
             <input
               type="number"
+              className="hero-input"
               name="rent"
-              className="search-input"
               placeholder="Max Rent (PKR)"
               value={filters.rent}
               onChange={handleChange}
             />
           </div>
 
-          {/* Button */}
-          <button className="explore-btn" onClick={handleSearch}>
+          <button className="hero-btn" onClick={() => handleSearch()}>
             <i className="fa-solid fa-magnifying-glass"></i> Search
           </button>
         </div>
 
-        {/* ===== POPULAR CITIES ===== */}
-        <div className="popular-cities mt-5">
-          <h5 className="city-heading text-light">Popular Cities</h5>
-          <div className="city-buttons">
-            <button className="city-btn karachi">Karachi</button>
-            <button className="city-btn lahore">Lahore</button>
-            <button className="city-btn islamabad">Islamabad</button>
-            <button className="city-btn multan">Multan</button>
+        {/* 🌆 POPULAR CITIES */}
+        <div className="hero-cities">
+          <h5>Popular Cities</h5>
+          <div className="hero-city-list">
+            <button
+              className="hero-city city-karachi"
+              onClick={() => handleSearch("Karachi")}
+            >
+              Karachi
+            </button>
+            <button
+              className="hero-city city-lahore"
+              onClick={() => handleSearch("Lahore")}
+            >
+              Lahore
+            </button>
+            <button
+              className="hero-city city-isb"
+              onClick={() => handleSearch("Islamabad")}
+            >
+              Islamabad
+            </button>
+            <button
+              className="hero-city city-multan"
+              onClick={() => handleSearch("Multan")}
+            >
+              Multan
+            </button>
           </div>
         </div>
+
+        {/* 📊 SEARCH RESULT COUNT */}
+        {results.length > 0 && (
+          <p style={{ marginTop: "20px", color: "#fff" }}>
+            {results.length} properties found
+          </p>
+        )}
       </div>
     </section>
   );

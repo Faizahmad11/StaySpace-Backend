@@ -1,101 +1,145 @@
-/* ===== ABOUT PAGE WRAPPER ===== */
-.about-container {
+/* ===== PAGE WRAPPER ===== */
+.about-page {
   font-family: "Poppins", sans-serif;
-  color: #3a3a3a;
-  line-height: 1.8;
-  padding-bottom: 60px;
-  background: #ffffff;
+  color: #2b2b2b;
+  background: #f9fafb;
 }
 
-/* ===== BANNER SECTION ===== */
-.about-banner {
+/* ===== HERO ===== */
+.about-hero {
   position: relative;
   width: 100%;
-  height: 380px;
-  overflow: hidden;
+  min-height: 380px;
+  background: #000;
 }
 
-.about-img {
+.about-hero img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(60%);
+  filter: brightness(55%);
 }
 
-/* Title Over Banner */
-.about-title {
+.about-hero-title {
   position: absolute;
-  bottom: 40px;
+  bottom: 35px;
   left: 50%;
-  transform: translateX(-50%);
-  color: #ffffff;
+  transform: translate(-50%, 20px);
+  color: #fff;
   font-size: 48px;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 2px;
+  text-transform: uppercase;
   text-align: center;
-  animation: fadeInUp 1.5s ease-in-out forwards;
+  opacity: 0;
+  animation: fadeUpHero 1.2s ease-out forwards;
 }
 
-/* Smooth animation */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 20px);
-  }
+@keyframes fadeUpHero {
   to {
     opacity: 1;
     transform: translate(-50%, 0);
   }
 }
 
-/* ===== CONTENT SECTION ===== */
-.about-content {
-  max-width: 950px;
-  margin: 40px auto;
-  padding: 0 20px;
-  font-size: 17px;
+/* ===== MAIN CONTENT ===== */
+.about-section {
+  background: #f9fafb;
+  padding: 60px 20px 80px;
 }
 
-.about-content p {
-  margin-bottom: 22px;
-  font-weight: 400;
-  opacity: 0.9;
-}
-
-/* ===== TAGLINE STYLING ===== */
-.tagline {
-  margin-top: 40px;
+.about-body {
+  max-width: 900px;
+  margin: 0 auto;
   text-align: center;
+}
+
+.about-heading {
   font-size: 26px;
-  color: #2a2a2a;
-  font-weight: 600;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #0048ff;
+  text-align: left;
 }
 
-.tagline2 {
-  margin-top: 10px;
+.about-body p {
+  font-size: 17px;
+  line-height: 1.9;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUpText 1s ease forwards;
+}
+
+.about-body p:nth-of-type(1) { animation-delay: 0.2s; }
+.about-body p:nth-of-type(2) { animation-delay: 0.4s; }
+.about-body p:nth-of-type(3) { animation-delay: 0.6s; }
+.about-body p:nth-of-type(4) { animation-delay: 0.8s; }
+.about-body p:nth-of-type(5) { animation-delay: 1s; }
+
+@keyframes fadeUpText {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 0.95; transform: translateY(0); }
+}
+
+/* ===== TAGLINES ===== */
+.about-tagline {
+  margin-top: 50px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+  opacity: 0;
+  animation: fadeUpText 1s ease forwards;
+  animation-delay: 1.2s;
   text-align: center;
+}
+
+.about-tagline-main {
+  margin-top: 10px;
   font-size: 30px;
   font-weight: 700;
   color: #0048ff;
   letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeUpText 1s ease forwards;
+  animation-delay: 1.4s;
+  text-align: center;
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .about-title {
-    font-size: 32px;
+
+  .about-hero {
+    min-height: 260px;
   }
 
-  .about-banner {
-    height: 260px;
+  .about-hero-title {
+    font-size: 30px;
+    bottom: 25px;
   }
 
-  .tagline {
+  .about-body {
+    text-align: left;
+  }
+
+  .about-heading {
     font-size: 22px;
   }
 
-  .tagline2 {
-    font-size: 24px;
+  .about-body p {
+    font-size: 15px;
   }
+
+  .about-tagline,
+  .about-tagline-main {
+    text-align: center;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero-title { font-size: 24px; }
+  .about-heading { font-size: 20px; }
+  .about-body p { font-size: 14px; }
 }
