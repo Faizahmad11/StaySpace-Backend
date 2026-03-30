@@ -1,16 +1,16 @@
 import React from 'react'
 import Header from '../components/Header'
-import Tenant11 from '../components/Tenant11'
+import RefundPolicy from '../components/refundpolicy'
 import Footer from '../components/Footer'
 
-const tenant = () => {
+const Refund = () => {
   return (
     <div>
       <Header/>
-        <Tenant11/>
-        <Footer/>
+      <RefundPolicy/>
+      <Footer/>
     </div>
   )
 }
 
-export default tenant
+export default Refund

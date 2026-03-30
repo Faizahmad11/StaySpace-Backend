@@ -1,16 +1,17 @@
 import React from 'react'
 import Header from '../components/Header'
-import Tenant11 from '../components/Tenant11'
 import Footer from '../components/Footer'
-
-const tenant = () => {
+import Blog from '../components/blog'
+const Blogs = () => {
   return (
     <div>
-      <Header/>
-        <Tenant11/>
+        <Header/>
+        <Blog/>
         <Footer/>
+      
     </div>
   )
 }
 
-export default tenant
+export default Blogs
+

@@ -11,19 +11,14 @@ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 const Signform = () => {
   const history = useHistory();
 
-  const [userData, setUserData] = useState({
-    email: "",
-    password: "",
-  });
-
+  const [userData, setUserData] = useState({ email: "", password: "" });
+  const [role, setRole] = useState("tenant"); // Default role
   const [loading, setLoading] = useState(false);
 
-  // ===== Auto-login if already logged in =====
+  // Auto-login if already logged in
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser?.role) {
-      redirectByRole(storedUser.role);
-    }
+    if (storedUser?.role) redirectByRole(storedUser.role);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,18 +33,17 @@ const Signform = () => {
   // ===== Normal login =====
   const handleLogin = async (e) => {
     e.preventDefault();
-
     if (!userData.email || !userData.password) {
       alert("Please enter email and password");
       return;
     }
-
     setLoading(true);
-
     try {
-      const res = await axios.post(`${API_URL}/api/login`, userData);
+      const res = await axios.post(`${API_URL}/api/auth/login`, userData, {
+        headers: { "Content-Type": "application/json" },
+      });
 
-      if (!res.data?.user) throw new Error("Invalid response");
+      if (!res.data?.user) throw new Error("Invalid response from server");
 
       localStorage.setItem("user", JSON.stringify(res.data.user));
       redirectByRole(res.data.user.role);
@@ -67,33 +61,60 @@ const Signform = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      // Sync with backend
-      const res = await axios.post(`${API_URL}/api/social-login`, {
-        name: user.displayName,
-        email: user.email,
-        provider: "google",
-        role: "tenant", // Default role
-      });
+      if (!user?.email || !user?.displayName) {
+        throw new Error("Google authentication failed");
+      }
+
+      // Send to backend
+      const res = await axios.post(
+        `${API_URL}/api/auth/social-login`,
+        {
+          name: user.displayName,
+          email: user.email,
+          provider: "google",
+          role, // tenant or landlord
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       localStorage.setItem("user", JSON.stringify(res.data.user));
       redirectByRole(res.data.user.role);
     } catch (err) {
       console.error("Google login error:", err);
-      alert(err.response?.data?.message || "Google login failed");
+      alert(err.response?.data?.message || err.message || "Google login failed");
     } finally {
       setLoading(false);
     }
+    
   };
 
   return (
-    <div
-      className="login-wrapper"
-      style={{ backgroundImage: `url(${bgi})` }}
-    >
+    <div className="login-wrapper" style={{ backgroundImage: `url(${bgi})` }}>
       <div className="login-card">
         <h2>Welcome Back</h2>
         <p className="subtitle">Log in to continue</p>
 
+        {/* Role Selector */}
+        <div className="role-selector">
+          <button
+            className={role === "tenant" ? "active" : ""}
+            onClick={() => setRole("tenant")}
+            type="button"
+          >
+            Tenant
+          </button>
+          <button
+            className={role === "landlord" ? "active" : ""}
+            onClick={() => setRole("landlord")}
+            type="button"
+          >
+            Landlord
+          </button>
+        </div>
+
+        {/* Normal login form */}
         <form onSubmit={handleLogin}>
           <div className="input-group">
             <FaUser className="input-icon" />
@@ -124,7 +145,13 @@ const Signform = () => {
           </button>
         </form>
 
-        <button className="google-btn" onClick={handleGoogleLogin} disabled={loading}>
+        {/* Google login */}
+       <button
+  type="button"
+  className="google-btn"
+  onClick={handleGoogleLogin}
+  disabled={loading}
+>
           <FaGoogle /> Continue with Google
         </button>
 

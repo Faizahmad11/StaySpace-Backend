@@ -8,7 +8,7 @@ import Listpropertyfree from "../containers/Listpropertyfree";
 import Signup from "../containers/Signup";
 import Contactus from "../containers/Contactus";
 import Signin from "../containers/signin";
-import Landlord from "../containers/landlord";
+import landlord from "../containers/landlord";
 import referearn from "../containers/referearn";
 import tenant from "../containers/tenant";
 import aboutus from "../containers/aboutus";
@@ -16,6 +16,11 @@ import howwework from "../containers/howwework";
 import Support from "../containers/Support";
 import Careers from "../containers/Careers";
 import AddListing from "../containers/addListing";
+import Termsconditions from "../containers/Termsconditions";
+import Privacy from "../containers/Privacy";
+import Refund from "../containers/Refund";
+import Blogs from "../containers/Blogs";
+
 
 const RoutesIndex = () => {
   const location = useLocation();
@@ -30,7 +35,7 @@ const RoutesIndex = () => {
             <Route path="/signup" component={Signup} />
             <Route path="/contactus" component={Contactus} />
             <Route path="/signin" component={Signin} />
-            <Route path="/landlord" component={Landlord} />
+            <Route path="/landlord" component={landlord} />
             <Route path="/referearn" component={referearn} />
             <Route path="/tenant" component={tenant} />
             <Route path="/aboutus" component={aboutus} />
@@ -38,6 +43,11 @@ const RoutesIndex = () => {
             <Route path="/Support" component={Support} />
             <Route path="/Careers" component={Careers} />
             <Route path="/AddListing" component={AddListing} />
+            <Route path="/Termsconditions" component={Termsconditions} />
+            <Route path="/Privacy" component={Privacy} />
+            <Route path="/Refund" component={Refund} />
+            <Route path="/Blogs" component={Blogs} />
+
           </Switch>
         </div>
       </CSSTransition>

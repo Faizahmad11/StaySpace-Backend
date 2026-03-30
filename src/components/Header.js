@@ -38,6 +38,22 @@ export default function Header() {
     history.push("/"); // redirect to home
   };
 
+  // =========================
+  // DYNAMIC NAVBAR LINK
+  // =========================
+  let listPropertyLink = "/listpropertyfree";
+  let listPropertyText = "List Property Free";
+
+  if (user) {
+    if (user.role === "landlord") {
+      listPropertyLink = "/landlord";
+      listPropertyText = "Landlord Dashboard";
+    } else if (user.role === "tenant") {
+      listPropertyLink = "/tenant";
+      listPropertyText = "Tenant Dashboard";
+    }
+  }
+
   return (
     <nav
       className={`navbar navbar-expand-lg navbar-dark custom-navbar fixed-top shadow-sm ${
@@ -68,8 +84,8 @@ export default function Header() {
         >
           <ul className="navbar-nav align-items-center gap-3">
             <li className="nav-item">
-              <Link className="nav-link" to="/listpropertyfree">
-                List Property Free
+              <Link className="nav-link" to={listPropertyLink}>
+                {listPropertyText}
               </Link>
             </li>
             <li className="nav-item">

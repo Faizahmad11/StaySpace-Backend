@@ -11,39 +11,57 @@ const Landlord = () => {
   const [filteredListings, setFilteredListings] = useState([]);
   const [searchCity, setSearchCity] = useState("");
 
+  // 🔒 AUTH CHECK
   useEffect(() => {
     if (!user) history.replace("/signup");
     else if (user.role !== "landlord") history.replace("/tenant");
   }, [user, history]);
 
+  // 📦 FETCH USER LISTINGS
   useEffect(() => {
     if (!user?._id) return;
+
     fetch(`http://localhost:5000/api/listing/user/${user._id}`)
       .then((res) => res.json())
       .then((data) => {
-        setListings(data);
-        setFilteredListings(data);
+        // Make sure we get an array
+        const listingsArray = Array.isArray(data.listings) ? data.listings : [];
+        setListings(listingsArray);
+        setFilteredListings(listingsArray);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch listings:", err);
+        setListings([]);
+        setFilteredListings([]);
       });
   }, [user?._id]);
 
+  // 🗑 DELETE LISTING
   const handleDelete = (id) => {
     if (!window.confirm("Delete this listing?")) return;
+
     fetch(`http://localhost:5000/api/listing/${id}`, { method: "DELETE" })
+      .then((res) => res.json())
       .then(() => {
         const updated = listings.filter((i) => i._id !== id);
         setListings(updated);
         setFilteredListings(updated);
+      })
+      .catch((err) => {
+        console.error("Failed to delete listing:", err);
       });
   };
 
+  // 🔍 SEARCH BY CITY
   const handleSearchCity = (e) => {
     const value = e.target.value;
     setSearchCity(value);
+
     if (!value) setFilteredListings(listings);
     else {
       setFilteredListings(
         listings.filter((i) =>
-          i.city.toLowerCase().includes(value.toLowerCase())
+          i.city?.toLowerCase().includes(value.toLowerCase())
         )
       );
     }
@@ -51,7 +69,7 @@ const Landlord = () => {
 
   return (
     <>
-      {/* 🔥 HERO IMAGE (NAVBAR KE PEECHE) */}
+      {/* 🔥 HERO IMAGE (NAVBAR BEHIND) */}
       <div
         className="navbar-hero"
         style={{ backgroundImage: `url(${bgc1})` }}
@@ -61,7 +79,7 @@ const Landlord = () => {
         </div>
       </div>
 
-      {/* ⬇️ DASHBOARD STARTS BELOW NAVBAR */}
+      {/* ⬇️ DASHBOARD */}
       <div className="dashboard-wrapper">
         <aside className="dashboard-sidebar">
           <div className="profile-box">
@@ -77,14 +95,14 @@ const Landlord = () => {
             <li onClick={() => history.push("/addlisting")}>
               Submit New Property
             </li>
-           <li
-  onClick={() => {
-    localStorage.removeItem("user"); // remove logged-in user
-    history.replace("/signin");      // redirect to signin page
-  }}
->
-  Logout
-</li>
+            <li
+              onClick={() => {
+                localStorage.removeItem("user");
+                history.replace("/signin");
+              }}
+            >
+              Logout
+            </li>
           </ul>
         </aside>
 
@@ -106,9 +124,8 @@ const Landlord = () => {
             onChange={handleSearchCity}
           />
 
-          {filteredListings.length === 0 ? (
-            <p className="empty-text">No listings found</p>
-          ) : (
+          {/* 🏘 LISTINGS */}
+          {Array.isArray(filteredListings) && filteredListings.length > 0 ? (
             <div className="row">
               {filteredListings.map((item) => (
                 <div className="col-md-4 mb-4" key={item._id}>
@@ -116,6 +133,8 @@ const Landlord = () => {
                 </div>
               ))}
             </div>
+          ) : (
+            <p className="empty-text">No listings found</p>
           )}
         </main>
       </div>

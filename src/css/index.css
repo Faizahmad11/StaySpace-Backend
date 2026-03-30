@@ -26,8 +26,11 @@
 @import url("./Careerpart1.css");
 @import url("./Landlord.css");
 @import url("./Tenant.css");
-@import url("./Tenant.css");
 @import url("./AddListing.css");
+@import url("./Studentterms.css");
+@import url("./PrivacyPolicy.css");
+@import url("./RefundPolicy.css" );
+@import url("./Blog.css");
 
 
 /* Defaults */
@@ -99,4 +102,39 @@ body {
 
 .add-listing-form button:hover {
   background: #084298;
+}
+/* RESPONSIVE MASTER FIX */
+
+@media (max-width: 1024px) {
+  .container {
+    width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .main-content {
+    padding-top: 60px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+
+  .add-listing-form button {
+    width: 100%;
+  }
 }

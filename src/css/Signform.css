@@ -141,3 +141,36 @@
   margin-top: 10px;
   color: #555;
 }
+/* ===== Role Selector Wrapper ===== */
+.role-selector {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 10px; /* space between buttons */
+}
+
+/* ===== Role Buttons ===== */
+.role-selector button {
+  padding: 10px 25px;
+  border: 2px solid #007bff; /* blue border */
+  background-color: #fff;      /* default white */
+  color: #007bff;              /* text color blue */
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Hover effect */
+.role-selector button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Active button style */
+.role-selector button.active {
+  background-color: #007bff;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+}

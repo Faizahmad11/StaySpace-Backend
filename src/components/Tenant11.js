@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-const Tenant = () => {
+const Tenant11 = () => {
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("user"));
   const name = user?.name || "Tenant";
 
-  const [listings, setListings] = useState([]);
+  const [listings, setListings] = useState([]); // ✅ default empty array
 
   // ROLE GUARD: Only tenant can access
   useEffect(() => {
@@ -20,10 +20,23 @@ const Tenant = () => {
 
   // FETCH ALL AVAILABLE LISTINGS
   useEffect(() => {
-    fetch("http://localhost:5000/api/listing") // assuming backend returns all listings
+    fetch("http://localhost:5000/api/listing") // assuming backend returns { listings: [...] } or [...]
       .then((res) => res.json())
-      .then((data) => setListings(data))
-      .catch((err) => console.log(err));
+      .then((data) => {
+        // ✅ Ensure it's an array
+        if (Array.isArray(data)) {
+          setListings(data);
+        } else if (Array.isArray(data.listings)) {
+          setListings(data.listings);
+        } else {
+          setListings([]); // fallback empty array
+          console.warn("Unexpected listings format:", data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setListings([]); // fallback on error
+      });
   }, []);
 
   // APPLY FUNCTION (optional)
@@ -42,20 +55,20 @@ const Tenant = () => {
       ) : (
         <div className="row">
           {listings.map((item) => (
-            <div className="col-md-4 mb-4" key={item._id}>
+            <div className="col-md-4 mb-4" key={item._id || item.id}>
               <div className="card shadow-sm h-100">
                 <img
-                  src={item.image}
-                  alt={item.title}
+                  src={item.image || "https://via.placeholder.com/400x200"}
+                  alt={item.title || "Listing"}
                   className="card-img-top"
                   style={{ height: "200px", objectFit: "cover" }}
                 />
                 <div className="card-body">
-                  <h5>{item.title}</h5>
-                  <p className="text-muted">Rs {item.price}</p>
+                  <h5>{item.title || "Untitled"}</h5>
+                  <p className="text-muted">Rs {item.price || "N/A"}</p>
                   <button
                     className="btn btn-sm btn-primary w-100"
-                    onClick={() => handleApply(item._id)}
+                    onClick={() => handleApply(item._id || item.id)}
                   >
                     Apply
                   </button>
@@ -69,4 +82,4 @@ const Tenant = () => {
   );
 };
 
-export default Tenant;
+export default Tenant11;

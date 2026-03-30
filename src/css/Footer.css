@@ -106,11 +106,11 @@
 /* ===== Newsletter Section ===== */
 .newsletter {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
   background: #142a50;
-  border-radius: 40px;
-  overflow: hidden;
+  border-radius: 20px;
+  padding: 12px;
   margin-top: 10px;
   border: 1px solid rgba(102, 204, 255, 0.2);
   box-shadow: inset 0 0 10px rgba(77, 184, 255, 0.1);
@@ -118,39 +118,38 @@
   max-width: 400px;
 }
 
+
 .newsletter input {
-  flex: 1;
-  padding: 14px 20px;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
   border: none;
   outline: none;
-  background: transparent;
+  background: #0f2244;
   color: #fff;
   font-size: 0.95rem;
-  min-width: 0;
 }
 
 .newsletter input::placeholder {
   color: #9db6d6;
 }
 
+
 /* 💡 Fixed Send Button */
 .newsletter button {
   background: linear-gradient(90deg, #009dff, #66ccff);
   color: #fff;
   border: none;
-  padding: 14px 25px;
+  padding: 13px;
   font-weight: bold;
-  border-radius: 0 40px 40px 0;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  min-width: auto;
-  height: 100%;
+  transition: 0.3s ease;
+  width: 100%;
 }
 
 .newsletter button:hover {
   background: linear-gradient(90deg, #66ccff, #009dff);
-  transform: scale(1.03);
   box-shadow: 0 0 10px rgba(102, 204, 255, 0.4);
 }
 
@@ -190,6 +189,12 @@
     max-width: 100%;
   }
 
+  .newsletter input {
+    width: 100%;
+    margin-bottom: 8px;
+    border-radius: 40px 40px 0 0;
+  }
+
   .newsletter button {
     width: 100%;
     border-radius: 0 0 40px 40px;
@@ -215,6 +220,15 @@
   }
 
   .newsletter {
-    width: 100%;
+     max-width: 100%;
+  }
+
+  .newsletter input {
+    padding: 12px 15px;
+  }
+
+  .newsletter button {
+    padding: 12px 15px;
+    font-size: 0.95rem;
   }
 }

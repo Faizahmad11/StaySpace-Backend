@@ -1,0 +1,97 @@
+/* ===== WRAPPER ===== */
+.privacy-wrapper {
+  font-family: "Poppins", sans-serif;
+  color: #1f2d3d;
+  background: #ffffff;
+}
+
+/* ===== HERO ===== */
+.privacy-hero {
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* LIGHT OVERLAY */
+.overlay {
+  background: rgba(255, 255, 255, 0.85);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+}
+
+.overlay h1 {
+  font-size: 42px;
+  color: #009dff;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.overlay p {
+  color: #4a5a70;
+  font-size: 1rem;
+}
+
+/* ===== CONTENT ===== */
+.privacy-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 60px 20px;
+  line-height: 1.9;
+}
+
+.update-date {
+  color: #6b7c93;
+  margin-bottom: 30px;
+}
+
+/* ===== HEADINGS ===== */
+.privacy-container h2 {
+  color: #009dff;
+  margin-top: 35px;
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+  position: relative;
+  font-weight: 600;
+}
+
+.privacy-container h2::after {
+  content: "";
+  width: 55px;
+  height: 3px;
+  background: linear-gradient(90deg, #009dff, #66ccff);
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  border-radius: 10px;
+}
+
+/* ===== TEXT ===== */
+.privacy-container p {
+  color: #2f3e55;
+}
+
+.privacy-container ul {
+  padding-left: 20px;
+}
+
+.privacy-container li {
+  margin: 8px 0;
+  color: #2f3e55;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .overlay h1 {
+    font-size: 30px;
+  }
+
+  .privacy-container {
+    padding: 40px 16px;
+  }
+}

@@ -26,6 +26,10 @@ import howwework from "./containers/howwework";
 import Support from "./containers/Support";
 import Careers from "./containers/Careers";
 import addListing from "./containers/addListing";
+import Termsconditions from "./containers/Termsconditions";
+import Privacy from "./containers/Privacy";
+import Refund from "./containers/Refund";
+import Blogs from "./containers/Blogs";
 
 // Component
 function App() {
@@ -55,6 +59,10 @@ function App() {
           <Route path="/Support" component={Support} />
           <Route path="/Careers" component={Careers} />
           <Route path="/addListing" component={addListing} />
+          <Route path="/Termsconditions" component={Termsconditions} />
+          <Route path="/Privacy" component={Privacy} />
+          <Route path="/Refund" component={Refund} />
+          <Route path="/Blogs" component={Blogs} />
           
         </Switch>
 
