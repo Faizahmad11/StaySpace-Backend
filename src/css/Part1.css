@@ -147,11 +147,12 @@
   transform: translateY(-3px) scale(1.05);
 }
 
+
 /* City Colors */
-.city-karachi { background: linear-gradient(90deg, #00796b, #4db6ac); }
-.city-lahore { background: linear-gradient(90deg, #8bc34a, #aed581); }
+.city-khi { background: linear-gradient(90deg, #00796b, #4db6ac); }
+.city-lhr { background: linear-gradient(90deg, #8bc34a, #aed581); }
 .city-isb { background: linear-gradient(90deg, #3949ab, #7986cb); }
-.city-multan { background: linear-gradient(90deg, #ff8f00, #ffb74d); }
+.city-mnt { background: linear-gradient(90deg, #ff8f00, #ffb74d); }
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 992px) {
@@ -162,4 +163,48 @@
 @media (max-width: 576px) {
   .hero-search { grid-template-columns: 1fr; }
   .hero-heading { font-size: 1.9rem; }
+}
+/* ================= SEARCH SUGGESTIONS (YouTube Style) ================= */
+.search-suggestions {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+  z-index: 999;
+  text-align: left;
+  border: 1px solid #eee;
+}
+
+.search-suggestions li {
+  padding: 10px 15px;
+  color: #333;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: 0.2s;
+}
+
+.search-suggestions li i {
+  position: static;
+  transform: none;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.search-suggestions li:hover {
+  background: #f0f4ff;
+  color: #1565c0;
+}
+
+/* Label fix for Select Icons */
+.hero-field i {
+  pointer-events: none; /* Icon click block na kare */
 }

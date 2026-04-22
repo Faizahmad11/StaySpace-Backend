@@ -1,14 +1,15 @@
 .features-section {
-  background: #fff;
-  padding: 80px 0;
+  background: #ffffff;
+  padding: 80px 20px;
   text-align: center;
-  color: #2c3e50;
+  font-family: 'Poppins', sans-serif;
 }
 
 .section-title {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: 800;
   color: #0a2540;
+  margin-bottom: 10px;
 }
 
 .section-title span {
@@ -16,92 +17,109 @@
 }
 
 .section-subtitle {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #6c757d;
-  font-style: italic;
-  margin-top: 8px;
+  margin-bottom: 50px;
+}
+
+/* Row wrapper ko flex banaya hai taake items ek line mein rahen */
+.features-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Mobile par khud niche chala jaye ga */
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .feature-card {
-  margin-bottom: 40px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1; /* Ye charo ko barabar jagah dega */
+  min-width: 250px; /* Mobile par width maintain rakhega */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .feature-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-12px);
 }
 
 .icon-wrapper {
   position: relative;
-  width: 90px;
-  height: 90px;
-  background: #f8f9fa;
+  width: 100px;
+  height: 100px;
+  background: #f0f7ff;
   border-radius: 50%;
   border: 2px dashed #007bff;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
   transition: all 0.3s ease;
 }
 
 .icon-wrapper i {
-  font-size: 32px;
+  font-size: 35px;
   color: #007bff;
-  transition: transform 0.3s ease;
-}
-
-.feature-card:hover .icon-wrapper i {
-  transform: scale(1.2);
-  color: #0056b3;
 }
 
 .feature-number {
   position: absolute;
-  top: -5px;
-  right: -5px;
-  background: #001f3f;
+  top: 0;
+  right: 0;
+  background: #0a2540;
   color: #fff;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   font-size: 14px;
+  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid #fff;
 }
 
 .feature-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #001f3f;
-  margin-top: 15px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0a2540;
+  margin-bottom: 12px;
 }
 
 .feature-desc {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #555;
-  margin-top: 10px;
-  max-width: 260px;
+  line-height: 1.6;
+  max-width: 280px;
 }
 
-/* Hover Glow Effect */
-.icon-wrapper:hover {
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
-  border-color: #0056b3;
+/* Hover Effects */
+.feature-card:hover .icon-wrapper {
+  background: #007bff;
+  border-style: solid;
+  box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+.feature-card:hover .icon-wrapper i {
+  color: #fff;
+}
+
+/* Responsive Logic */
+@media (max-width: 992px) {
   .feature-card {
-    margin-bottom: 50px;
+    flex: 0 0 45%; /* Tablets par 2 cards ek row mein */
   }
+}
 
-  .icon-wrapper {
-    width: 70px;
-    height: 70px;
+@media (max-width: 576px) {
+  .feature-card {
+    flex: 0 0 100%; /* Mobile par 1 card ek row mein */
   }
-
-  .icon-wrapper i {
-    font-size: 26px;
+  .section-title {
+    font-size: 1.8rem;
   }
 }

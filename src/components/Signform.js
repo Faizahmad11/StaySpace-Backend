@@ -146,14 +146,7 @@ const Signform = () => {
         </form>
 
         {/* Google login */}
-       <button
-  type="button"
-  className="google-btn"
-  onClick={handleGoogleLogin}
-  disabled={loading}
->
-          <FaGoogle /> Continue with Google
-        </button>
+      
 
         <p className="forgot">Forgot Password?</p>
 

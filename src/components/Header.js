@@ -9,33 +9,62 @@ export default function Header() {
   const [user, setUser] = useState(null);
   const history = useHistory();
 
-  // Scroll effect
+  // 1. Scroll effect (Stable)
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 40;
+      setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Load user from localStorage initially
+  // 2. Load user initially with Safe Check
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) setUser(storedUser);
+    const data = localStorage.getItem("user");
+    if (data) {
+      try {
+        const parsedUser = JSON.parse(data);
+        setUser(parsedUser);
+      } catch (e) {
+        localStorage.removeItem("user");
+      }
+    }
   }, []);
 
-  // Listen to localStorage changes (signup/login from other pages)
+  // 3. Listen to localStorage (Fix for Infinite Loop)
   useEffect(() => {
     const handleStorageChange = () => {
-      const updatedUser = JSON.parse(localStorage.getItem("user"));
-      setUser(updatedUser);
+      const data = localStorage.getItem("user");
+      const updatedUser = data ? JSON.parse(data) : null;
+      
+      // Sirf tab update karein agar user ID ya data change hua ho
+      setUser((prevUser) => {
+        if (JSON.stringify(prevUser) !== JSON.stringify(updatedUser)) {
+          return updatedUser;
+        }
+        return prevUser;
+      });
     };
+
     window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+    // Custom event handle karne ke liye (agar same window mein login ho raha ho)
+    window.addEventListener("userLoginStatusChange", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("userLoginStatusChange", handleStorageChange);
+    };
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token"); // Token bhi remove karein safety ke liye
     setUser(null);
-    history.push("/"); // redirect to home
+    setAccountOpen(false);
+    history.push("/"); 
+    // Trigger custom event taake header update ho jaye
+    window.dispatchEvent(new Event("userLoginStatusChange"));
   };
 
   // =========================
@@ -77,72 +106,63 @@ export default function Header() {
         </button>
 
         {/* Links */}
-        <div
-          className={`collapse navbar-collapse justify-content-end ${
-            menuOpen ? "show" : ""
-          }`}
-        >
+        <div className={`collapse navbar-collapse justify-content-end ${menuOpen ? "show" : ""}`}>
           <ul className="navbar-nav align-items-center gap-3">
             <li className="nav-item">
-              <Link className="nav-link" to={listPropertyLink}>
+              <Link className="nav-link" to={listPropertyLink} onClick={() => setMenuOpen(false)}>
                 {listPropertyText}
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/contactus">
+              <Link className="nav-link" to="/contactus" onClick={() => setMenuOpen(false)}>
                 Contact Us
               </Link>
             </li>
 
             {/* Account Dropdown */}
             <li
-              className="nav-item dropdown hover-dropdown"
-              onClick={() => setAccountOpen(!accountOpen)}
+              className="nav-item dropdown"
               style={{ position: "relative" }}
             >
-              <button className="nav-link btn btn-link p-0">
-                <i className="fa fa-user me-1"></i>{" "}
-                {user ? user.name : "My Account"}
+              <button 
+                className="nav-link btn btn-link p-0 d-flex align-items-center gap-1"
+                onClick={() => setAccountOpen(!accountOpen)}
+                style={{ textDecoration: 'none' }}
+              >
+                <i className="fa fa-user"></i>
+                <span>{user ? user.name?.split(" ")[0] : "My Account"}</span>
               </button>
 
               <ul
-                className={`dropdown-menu fade-dropdown ${
-                  accountOpen ? "show" : ""
-                }`}
+                className={`dropdown-menu dropdown-menu-end shadow ${accountOpen ? "show" : ""}`}
                 style={{
                   position: "absolute",
-                  top: "100%",
-                  left: 0,
                   display: accountOpen ? "block" : "none",
+                  right: 0,
+                  top: "100%"
                 }}
               >
                 {user ? (
                   <>
-                    <li className="dropdown-item-text">
-                      <strong>{user.name}</strong>
-                      <br />
-                      <small>{user.email}</small>
+                    <li className="dropdown-item-text border-bottom pb-2 mb-2">
+                      <div className="fw-bold">{user.name}</div>
+                      <small className="text-muted">{user.email}</small>
                     </li>
                     <li>
-                      <button
-                        className="dropdown-item"
-                        onClick={handleLogout}
-                      >
-                        <i className="fa-solid fa-right-from-bracket me-2"></i>{" "}
-                        Logout
+                      <button className="dropdown-item text-danger" onClick={handleLogout}>
+                        <i className="fa-solid fa-right-from-bracket me-2"></i> Logout
                       </button>
                     </li>
                   </>
                 ) : (
                   <>
                     <li>
-                      <Link className="dropdown-item" to="/signin">
-                        <i className="fa-solid fa-right-to-bracket me-2"></i>{" "}
-                        Login
+                      <Link className="dropdown-item" to="/signin" onClick={() => setAccountOpen(false)}>
+                        <i className="fa-solid fa-right-to-bracket me-2"></i> Login
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" to="/listpropertyfree">
+                      <Link className="dropdown-item" to="/listpropertyfree" onClick={() => setAccountOpen(false)}>
                         <i className="fa-solid fa-user-plus me-2"></i> Sign Up
                       </Link>
                     </li>
@@ -151,9 +171,9 @@ export default function Header() {
               </ul>
             </li>
 
-            <li className="nav-item ms-lg-3">
+            <li className="nav-item ms-lg-2">
               <Link className="btn refer-btn" to="/referearn">
-                <i className="fa-solid fa-gift me-1"></i> Refer & Earn
+                <i className="fa-solid fa-gift me-1"></i> Refer
               </Link>
             </li>
           </ul>

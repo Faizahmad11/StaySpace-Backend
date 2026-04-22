@@ -119,3 +119,223 @@
     height: 210px;
   }
 }
+
+/* Grid Layout for expanded view */
+.ssx-grid-container {
+  padding: 20px 0;
+}
+
+.ssx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Smooth transition for the container height */
+.ssx-section {
+  transition: all 0.5s ease-in-out;
+}
+/* --- MODAL OVERLAY --- */
+.ssx-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.ssx-modal-box {
+  background: #fff;
+  width: 90%;
+  max-width: 900px;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+}
+
+.ssx-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: #f3f4f6;
+  border: none;
+  font-size: 1.8rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.3s;
+}
+
+.ssx-close:hover { background: #e5e7eb; }
+
+/* MODAL LAYOUT */
+.ssx-modal-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ssx-modal-left {
+  flex: 1;
+  min-width: 350px;
+  height: 450px;
+}
+
+.ssx-modal-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ssx-modal-right {
+  flex: 1;
+  padding: 40px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ssx-modal-right h3 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: #111827;
+}
+
+.ssx-modal-right p {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  color: #4b5563;
+}
+
+.ssx-location strong { color: #4c6ef5; }
+
+/* URDU BUTTON (ANCHOR TAG) */
+.ssx-btn-urdu {
+  display: inline-block;
+  margin-top: 25px;
+  background: #111827;
+  color: #fff;
+  text-decoration: none !important;
+  padding: 14px 30px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.ssx-btn-urdu:hover {
+  color: #111;
+
+  background: #4c6ef5;
+  transform: translateY(-2px);
+  text-decoration: none !important;
+  
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ssx-modal-left { height: 250px; min-width: 100%; }
+  .ssx-modal-right { padding: 25px; }
+  .ssx-modal-right h3 { font-size: 1.6rem; }
+}
+
+/* Filter Bar */
+.ssx-filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.ssx-filter-btn {
+  padding: 10px 25px;
+  border-radius: 50px;
+  border: 2px solid #4c6ef5;
+  background: transparent;
+  color: #4c6ef5;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.ssx-filter-btn.active, .ssx-filter-btn:hover {
+  background: #4c6ef5;
+  color: white;
+}
+
+/* Tags on Images */
+.ssx-img { position: relative; }
+.ssx-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #4c6ef5;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Modal Enhancements */
+.modal-category {
+  color: #4c6ef5;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.ssx-btn-call {
+  background: #28a745;
+  color: white;
+  margin-top: 25px;
+  height: 50px;
+    padding: 14px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+.ssx-btn-call:hover {
+  background: #218838;
+  color: #111;
+
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.ssx-btn-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Text aur Icon ke darmiyan space */
+  text-decoration: none !important;
+  font-family: 'Poppins', sans-serif; /* Ya jo bhi aapka main font hai */
+  font-weight: 600;
+}
+
+.ssx-btn-call i {
+  font-size: 0.9rem; /* Icon ka size adjust karne ke liye */
+}
+
+/* Grid Container Scroll */
+.ssx-grid-container {
+  max-height: 700px;
+  overflow-y: auto;
+  padding: 20px;
+}

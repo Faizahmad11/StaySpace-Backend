@@ -1,11 +1,18 @@
 import React from "react";
-
+import { Link} from "react-router-dom"; // useNavigate add kiya professional logic ke liye
 
 export default function Partfive() {
+  
+
+  const handleButtonClick = (e) => {
+    // Pehle alert dikhayen
+    alert("Your listing form will open here.");
+    // Phir navigate karen (Optionally agar Link use nahi karna to)
+  };
+
   return (
     <section className="partfive-section">
       <div className="partfive-container">
-
         <p className="top-text">Are You A Landlord Looking For Students In Pakistan?</p>
 
         <h2>
@@ -19,9 +26,15 @@ export default function Partfive() {
           and quickly.
         </p>
 
-        <button className="partfive-btn" onClick={() => alert("Your listing form will open here.")}>
+        {/* SAHI TARIQA: Link ko hi button ki class de den */}
+        <Link 
+          to="/listpropertyfree" 
+          className="partfive-btn" 
+          onClick={handleButtonClick}
+          style={{ textDecoration: 'none', display: 'inline-block' }}
+        >
           Create your free listing now
-        </button>
+        </Link>
 
       </div>
     </section>

@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 // At the top with other components
 import BackToHomeButton from "./components/BackToHomeButton";
+import ScrollToTop from "./components/ScrollToTop";
 
 
 // Files
@@ -30,19 +31,24 @@ import Termsconditions from "./containers/Termsconditions";
 import Privacy from "./containers/Privacy";
 import Refund from "./containers/Refund";
 import Blogs from "./containers/Blogs";
+import AddListing from "./components/AddListing";
 
 // Component
 function App() {
   return (
     <Router>
+      
       <div className="App">
         {/* Toastify Container for Notifications */}
+        <ScrollToTop />
         <ToastContainer
           position="bottom-right"
           autoClose={3000}
           hideProgressBar={true}
           transition={Flip}
         />
+        
+        
 
         {/* Routes */}
         <Switch>
@@ -63,6 +69,7 @@ function App() {
           <Route path="/Privacy" component={Privacy} />
           <Route path="/Refund" component={Refund} />
           <Route path="/Blogs" component={Blogs} />
+          <Route path="/editlisting/:id" component={AddListing} />
           
         </Switch>
 

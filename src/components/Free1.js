@@ -7,25 +7,29 @@ import "../css/Free1.css";
 
 export default function Free1() {
   const history = useHistory();
+  const API = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   // =========================
-  // SAFE AUTH CHECK (NO REDIRECT)
+  // SAFE AUTH REDIRECT
   // =========================
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-
     if (!storedUser) return;
 
     try {
-      const parsedUser = JSON.parse(storedUser);
+      const user = JSON.parse(storedUser);
+      if (!user?.role) return;
 
-      // Redirect immediately if user already signed up
-      if (parsedUser.role === "landlord") history.replace("/landlord");
-      else if (parsedUser.role === "tenant") history.replace("/tenant");
-    } catch {
-      localStorage.removeItem("user"); // corrupted data fix
+      // Check if we are already on the target page to prevent infinite loop
+      const targetPath = user.role === "landlord" ? "/landlord" : "/tenant";
+      if (history.location.pathname !== targetPath) {
+        history.replace(targetPath);
+      }
+    } catch (err) {
+      console.error("Auth redirect error:", err);
+      localStorage.removeItem("user");
     }
-  }, [history]);
+  }, [history]); // history dependency is enough here
 
   // =========================
   // STATE
@@ -40,135 +44,74 @@ export default function Free1() {
   });
 
   const [activeRole, setActiveRole] = useState("landlord");
-  const [toast, setToast] = useState({ show: false, message: "" });
   const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState({ show: false, message: "" });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const showToast = (message) => {
+    setToast({ show: true, message });
+    setTimeout(() => setToast({ show: false, message: "" }), 2500);
   };
 
   // =========================
-  // SIGNUP HANDLER
+  // SIGNUP
   // =========================
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+      return alert("Passwords do not match!");
     }
-
-    if (formData.password.length < 6) {
-      alert("Password must be at least 6 characters");
-      return;
-    }
-
-    setLoading(true);
 
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/auth/signup`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            password: formData.password,
-            role: activeRole,
-            username: formData.username || undefined,
-            phone: formData.phone || undefined,
-          }),
-        }
-      );
+      setLoading(true);
+      const res = await fetch(`${API}/api/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          role: activeRole,
+          username: formData.username || undefined,
+          phone: formData.phone || undefined,
+        }),
+      });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Signup failed");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Signup failed");
 
-      // ✅ Save full user with role
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          name: data.user.name,
-          email: data.user.email,
-          role: data.user.role,
-          _id: data.user._id,
-        })
-      );
+      localStorage.setItem("user", JSON.stringify({
+        _id: data.user._id,
+        name: data.user.name,
+        email: data.user.email,
+        role: data.user.role,
+      }));
 
-      setToast({ show: true, message: "Account created successfully!" });
-      setTimeout(() => setToast({ show: false, message: "" }), 2500);
-
-      // ✅ Redirect based on role immediately
-      history.replace(data.user.role === "landlord" ? "/landlord" : "/tenant");
+      showToast("Account created successfully!");
+      setTimeout(() => {
+        history.replace(data.user.role === "landlord" ? "/landlord" : "/tenant");
+      }, 800);
     } catch (err) {
-      alert(err.message || "Something went wrong!");
+      alert(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  // =========================
-  // GOOGLE LOGIN
-  // =========================
-  const handleGoogleLogin = async () => {
-    setLoading(true);
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-
-      if (!user?.email || !user?.displayName) {
-        throw new Error("Google authentication failed");
-      }
-
-      // Send Google login info to backend
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL || "http://localhost:5000"}/api/auth/social-login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: user.displayName,
-            email: user.email,
-            provider: "google",
-            role: activeRole,
-          }),
-        }
-      );
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Google login failed");
-
-      // ✅ Save user + role
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          name: data.user.name,
-          email: data.user.email,
-          role: data.user.role,
-          _id: data.user._id,
-        })
-      );
-
-      // ✅ Redirect immediately
-      history.replace(data.user.role === "landlord" ? "/landlord" : "/tenant");
-    } catch (err) {
-      alert(err.message || "Google login failed!");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // =========================
-  // RENDER
-  // =========================
   return (
     <div className="Free1-bg" style={{ backgroundImage: `url(${background})` }}>
       <div className="signup-card animate-fade-in">
         <h2>Welcome to StaySpace</h2>
         <p>Create your profile and join the community</p>
 
-        {/* ROLE TABS */}
         <ul className="role-tabs">
           {["landlord", "tenant"].map((role) => (
             <li key={role}>
@@ -176,6 +119,7 @@ export default function Free1() {
                 type="button"
                 className={`role-btn ${activeRole === role ? "active" : ""}`}
                 onClick={() => setActiveRole(role)}
+                disabled={loading}
               >
                 {role.charAt(0).toUpperCase() + role.slice(1)}
               </button>
@@ -183,57 +127,32 @@ export default function Free1() {
           ))}
         </ul>
 
-        {/* SIGNUP FORM */}
         <form onSubmit={handleSubmit}>
-          {["name", "email", "username", "password", "confirmPassword", "phone"].map(
-            (field) => (
-              <input
-                key={field}
-                type={
-                  field.includes("password")
-                    ? "password"
-                    : field === "email"
-                    ? "email"
-                    : "text"
-                }
-                className="signup-input"
-                placeholder={
-                  field === "confirmPassword"
-                    ? "Confirm Password"
-                    : field === "phone"
-                    ? "Mobile Number"
-                    : field.charAt(0).toUpperCase() + field.slice(1)
-                }
-                name={field}
-                value={formData[field]}
-                onChange={handleChange}
-                required={field !== "username" && field !== "phone"}
-              />
-            )
-          )}
+          {["name", "email", "username", "password", "confirmPassword", "phone"].map((field) => (
+            <input
+              key={field}
+              name={field}
+              value={formData[field]}
+              onChange={handleChange}
+              placeholder={field === "confirmPassword" ? "Confirm Password" : field === "phone" ? "Mobile Number" : field.charAt(0).toUpperCase() + field.slice(1)}
+              type={field.includes("password") ? "password" : field === "email" ? "email" : "text"}
+              className="signup-input"
+              required={field !== "username" && field !== "phone"}
+              disabled={loading}
+            />
+          ))}
 
-          <button type="submit" className="btn-primary w-100" disabled={loading}>
-            {loading ? "Signing Up..." : `Sign Up as ${activeRole}`}
+          <button className="btn-primary w-100" type="submit" disabled={loading}>
+            {loading ? "Processing..." : `Sign Up as ${activeRole}`}
           </button>
         </form>
 
-        {/* GOOGLE LOGIN */}
-        <button className="btn-google w-100" onClick={handleGoogleLogin}>
-          <img
-            src="https://img.icons8.com/color/48/google-logo.png"
-            width="22"
-            alt="Google"
-          />
-          Continue with Google
-        </button>
-
-        {/* SIGN IN LINK */}
         <p className="signin-link">
-          Already have an account? <span onClick={() => history.push("/signin")}>Sign In</span>
+          Already have an account?{" "}
+          <span onClick={() => history.push("/signin")} style={{cursor: 'pointer', color: 'var(--primary-color)', fontWeight: 'bold'}}>Sign In</span>
         </p>
       </div>
 
-      {/* TOAST */}
       {toast.show && <div className="toast-popup">{toast.message}</div>}
     </div>
   );

@@ -1,73 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import heroBg from "../assets/imgi_24_1583228392669.jpg";
 
-/* 🔹 TEMP DEMO DATA (replace with API later) */
-const propertiesData = [
-  {
-    id: 1,
-    city: "Karachi",
-    area: "Gulshan",
-    type: "Flat / Room",
-    rent: 25000,
-  },
-  {
-    id: 2,
-    city: "Lahore",
-    area: "Johar Town",
-    type: "PG / Hostel",
-    rent: 18000,
-  },
-  {
-    id: 3,
-    city: "Islamabad",
-    area: "G-11",
-    type: "Dormitory",
-    rent: 15000,
-  },
+/* 🔹 EXTENDED DATA FOR SUGGESTIONS */
+const areaSuggestions = [
+  "Gulshan, Karachi", "DHA, Karachi", "North Nazimabad, Karachi",
+  "Johar Town, Lahore", "Gulberg, Lahore", "DHA, Lahore", "Model Town, Lahore",
+  "F-7, Islamabad", "G-11, Islamabad", "Blue Area, Islamabad", "E-11, Islamabad",
+  "Gulgasht, Multan", "Bosan Road, Multan"
 ];
 
 export default function Part1() {
-  const [filters, setFilters] = useState({
-    location: "",
-    type: "",
-    rent: "",
-  });
+  const [filters, setFilters] = useState({ location: "", type: "", rent: "" });
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const suggestionRef = useRef(null);
 
-  const [results, setResults] = useState([]);
+  /* 🔹 HANDLE CLICK OUTSIDE SUGGESTIONS */
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (suggestionRef.current && !suggestionRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  /* 🔹 INPUT CHANGE */
+  /* 🔹 INPUT CHANGE WITH AUTO-SUGGEST */
   const handleChange = (e) => {
-    setFilters({ ...filters, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFilters({ ...filters, [name]: value });
+
+    if (name === "location" && value.length > 0) {
+      const filtered = areaSuggestions.filter(item =>
+        item.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filtered);
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
   };
 
-  /* 🔹 SEARCH LOGIC */
-  const handleSearch = (customLocation) => {
-    const locationValue = customLocation ?? filters.location;
-
-    const filtered = propertiesData.filter((p) => {
-      const matchLocation =
-        locationValue === "" ||
-        p.city.toLowerCase().includes(locationValue.toLowerCase()) ||
-        p.area.toLowerCase().includes(locationValue.toLowerCase());
-
-      const matchType =
-        filters.type === "" || p.type === filters.type;
-
-      const matchRent =
-        filters.rent === "" || p.rent <= Number(filters.rent);
-
-      return matchLocation && matchType && matchRent;
-    });
-
-    setResults(filtered);
+  const selectSuggestion = (city) => {
+    setFilters({ ...filters, location: city });
+    setShowSuggestions(false);
   };
 
   return (
     <section className="hero-wrapper">
-      <div
-        className="hero-bg"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      ></div>
+      <div className="hero-bg" style={{ backgroundImage: `url(${heroBg})` }}></div>
       <div className="hero-overlay"></div>
 
       <div className="hero-container">
@@ -79,9 +61,11 @@ export default function Part1() {
           Discover hostels, flats, and rooms near you — affordable, verified, and hassle-free.
         </p>
 
-        {/* 🔍 SEARCH */}
+        {/* 🔍 SEARCH PANEL */}
         <div className="hero-search">
-          <div className="hero-field">
+          
+          {/* LOCATION WITH YOUTUBE-STYLE SUGGESTIONS */}
+          <div className="hero-field" ref={suggestionRef}>
             <i className="fa-solid fa-location-dot"></i>
             <input
               className="hero-input"
@@ -89,78 +73,77 @@ export default function Part1() {
               placeholder="City or Area"
               value={filters.location}
               onChange={handleChange}
+              autoComplete="off"
             />
+            {showSuggestions && suggestions.length > 0 && (
+              <ul className="search-suggestions">
+                {suggestions.map((s, i) => (
+                  <li key={i} onClick={() => selectSuggestion(s)}>
+                    <i className="fa-solid fa-clock-rotate-left"></i> {s}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
+          {/* PROPERTY TYPE (FYP SPECIFIC) */}
           <div className="hero-field">
-            <i className="fa-solid fa-building"></i>
-            <select
-              className="hero-select"
-              name="type"
-              value={filters.type}
-              onChange={handleChange}
-            >
-              <option value="">Property Type</option>
-              <option>Flat / Room</option>
-              <option>PG / Hostel</option>
-              <option>Dormitory</option>
+            <i className="fa-solid fa-users"></i>
+            <select className="hero-select" name="type" value={filters.type} onChange={handleChange}>
+              <option value="">Who are you?</option>
+              <option value="Solo">Student / Solo Traveler</option>
+              <option value="Couple">Couple / Small Family</option>
+              <option value="Family">Kids Friendly / Large Family</option>
+              <option value="Senior">Senior Citizens (Peaceful)</option>
             </select>
           </div>
 
+          {/* RENT FILTER */}
           <div className="hero-field">
-            <i className="fa-solid fa-money-bill-wave"></i>
-            <input
-              type="number"
-              className="hero-input"
-              name="rent"
-              placeholder="Max Rent (PKR)"
-              value={filters.rent}
-              onChange={handleChange}
-            />
+            <i className="fa-solid fa-tags"></i>
+            <select className="hero-select" name="rent" value={filters.rent} onChange={handleChange}>
+              <option value="">Max Budget</option>
+              <option value="10000">Under 10k</option>
+              <option value="20000">Under 20k</option>
+              <option value="50000">Under 50k</option>
+              <option value="100000">Luxury (100k+)</option>
+            </select>
           </div>
 
-          <button className="hero-btn" onClick={() => handleSearch()}>
+          <button className="hero-btn">
             <i className="fa-solid fa-magnifying-glass"></i> Search
           </button>
         </div>
 
         {/* 🌆 POPULAR CITIES */}
         <div className="hero-cities">
-          <h5>Popular Cities</h5>
-          <div className="hero-city-list">
-            <button
-              className="hero-city city-karachi"
-              onClick={() => handleSearch("Karachi")}
-            >
-              Karachi
-            </button>
-            <button
-              className="hero-city city-lahore"
-              onClick={() => handleSearch("Lahore")}
-            >
-              Lahore
-            </button>
-            <button
-              className="hero-city city-isb"
-              onClick={() => handleSearch("Islamabad")}
-            >
-              Islamabad
-            </button>
-            <button
-              className="hero-city city-multan"
-              onClick={() => handleSearch("Multan")}
-            >
-              Multan
-            </button>
-          </div>
-        </div>
+          <h5>Quick Search Cities</h5>
+   <div className="hero-city-list">
+  {["Karachi", "Lahore", "Islamabad", "Multan"].map((city) => {
+    
+    // 1. Aik "Map" banayen jo City name ko aapki CSS class se jore
+    const cityClassMap = {
+      "Karachi": "khi",
+      "Lahore": "lhr",
+      "Islamabad": "isb",
+      "Multan": "mnt"
+    };
 
-        {/* 📊 SEARCH RESULT COUNT */}
-        {results.length > 0 && (
-          <p style={{ marginTop: "20px", color: "#fff" }}>
-            {results.length} properties found
-          </p>
-        )}
+    // 2. City name ke mutabiq class nikalen
+    const cityClass = cityClassMap[city];
+
+    return (
+      <button
+        key={city}
+        className={`hero-city city-${cityClass}`}
+        onClick={() => setFilters({ ...filters, location: city })}
+      >
+        {city}
+      </button>
+    );
+  })}
+</div>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,7 @@
 import React from "react";
 import imageii from "../assets/img1.png";
+import { Link} from "react-router-dom"; // useNavigate add kiya professional logic ke liye
+
 
 function Parteight() {
   return (
@@ -19,7 +21,10 @@ function Parteight() {
             works around the clock to make your living experience exceptional.
           </p>
 
-          <button className="btn-professional">Contact Us</button>
+          <Link to="/ContactUs"
+          style={{ textDecoration: 'none', display: 'inline-block' }}
+           className="btn-professional"
+          >Contact Us</Link>
         </div>
       </div>
     </section>
