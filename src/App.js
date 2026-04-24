@@ -8,7 +8,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import BackToHomeButton from "./components/BackToHomeButton";
 import ScrollToTop from "./components/ScrollToTop";
 
-
 // Files
 import "./css/index.css";
 import Whatapp from "./components/Whatapp";
