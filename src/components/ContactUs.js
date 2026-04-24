@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import bgc1 from "../assets/bgc1.jpg";
+import bgc1 from "../assets/bgc1.png";
 import emailjs from "@emailjs/browser";
 
 const ContactUs = () => {
